@@ -1,0 +1,21 @@
+//Z1 : wartosc funkcji f(x)
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+    float x = -10;
+    float fx = 0.0;
+
+    if(x<-6.0) {
+        fx=1/(2*x);
+    } else  if (x>=-6 && x<= 2) {
+        fx=2;
+    } else {
+        fx=sqrt(5+x)+6;
+    }
+    cout << fx;
+    return 0;
+}
