@@ -1,0 +1,20 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    double x;
+    cout << "Wprowadz x : ";
+    cin >> x;
+
+    double fx = 0.0;
+    if (x<=0){
+        fx = x/((2.0*x)+1.0);
+    } else if (0.0<x && x <=5.0) {
+        fx = ((2.0*x)+1.0)/4.0*x;
+    } else {
+        fx = (x*x*x*x)*5.0;
+    }
+    cout << "F(" << x << ") wynosi : " << fx << endl;
+}
