@@ -1,0 +1,21 @@
+//Z2 Generowanie 10 liczb losowych nieparzystych [10,30]
+
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+int main()
+{
+    int randNum;
+    srand(time(NULL));
+    for(int i=0; i<10; i++){
+        randNum = rand() % 20 + 11;
+        if(randNum % 2 == 0) {
+            randNum--;
+        }
+        cout << randNum << endl;
+    }
+    return 0;
+}
