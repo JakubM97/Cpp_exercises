@@ -1,0 +1,31 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int a, b;
+
+    cout << "Podaj pierwsza liczbe :" << endl;
+    cin >> a;
+    cout << "Podaj druga liczbe :" << endl;
+    cin >> b;
+
+    if(a==b) {
+        cout << "liczbe te sa sobie rowne" << endl;
+        return 0;
+    }
+
+    cout << "Wyliczam liczby calkowite pomiedzy danymi liczbami" << endl;
+    if (a>b) {
+        while (++b!=a) {
+            cout << b << endl;
+        }
+    } else {
+        while (++a!=b){
+            cout << a << endl;
+        }
+    }
+
+    return 0;
+}
