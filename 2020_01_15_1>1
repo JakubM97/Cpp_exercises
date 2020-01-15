@@ -1,0 +1,16 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int a, b;
+    cin >> a >> b;
+    int suma = a+b;
+    if (suma%2==0) {
+        cout << "suma parzysta" << endl;
+    } else {
+        cout << "suma nieparzysta" << endl;
+    }
+    return 0;
+}
