@@ -1,0 +1,28 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int main()
+{
+    int tab[9];
+    srand(time(NULL));
+    for(int i=0; i<9; i++) {
+        int helper = rand()%2;
+        if(helper==0){
+            tab[i]=4;
+        } else {
+            tab[i]=6;
+        }
+    }
+    int sixCounter = 0;
+    int fourCounter = 0;
+    for(int i=0; i<9; i++) {
+        if (tab[i]==4) {
+            fourCounter++;
+        } else sixCounter++;
+    }
+    cout << "liczba czworek : " << fourCounter << endl;
+    cout << "liczba szostek : " << sixCounter;
+    return 0;
+}
