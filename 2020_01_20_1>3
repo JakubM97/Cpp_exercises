@@ -1,0 +1,38 @@
+using System;
+using System.IO;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void NapiszRecepte(string nazwisko)
+        {
+            Console.WriteLine("Podaj liczbe lekow");
+            int liczbaLekow;
+            liczbaLekow = int.Parse(Console.ReadLine());
+
+            string path = nazwisko + ".txt";
+            StreamWriter sw = new StreamWriter(path, false);
+                for(int i=0; i<liczbaLekow; i++)
+                {
+                    string nazwaLeku;
+                    string dawka;
+                    Console.WriteLine("Podaj nazwke leku :");
+                    nazwaLeku = Console.ReadLine();
+                    Console.WriteLine("Podaj dawke " + nazwaLeku);
+                    dawka = Console.ReadLine();
+                    sw.WriteLine("{0};{1}", nazwaLeku, dawka);
+                }
+            sw.Close();
+
+        }
+        static void Main(string[] args)
+        {
+    
+            string nazwisko;
+            Console.WriteLine("Podaj nazwisko pacjenta");
+            nazwisko = Console.ReadLine();
+            NapiszRecepte(nazwisko);
+        }
+    }
+}
