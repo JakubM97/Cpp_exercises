@@ -1,0 +1,36 @@
+using System;
+using System.IO;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static int Zad4(string nazwaPliku)
+        {
+            StreamReader sr = new StreamReader(nazwaPliku);
+            string file = sr.ReadLine();
+            string[] tab = file.Split('-');
+            int[] tab1 = new int[tab.Length];
+            int maxOdl = 0;
+            for(int i =0; i<tab.Length; i++)
+            {
+                tab1[i] = int.Parse(tab[i]);
+                if (maxOdl < tab1[i])
+                {
+                    maxOdl = tab1[i];
+                }
+            }
+
+            return maxOdl;
+        }
+
+
+        static void Main(string[] args)
+        {
+            string path = "plik.txt";
+            Console.WriteLine("Najwieksza odleglosc miedzy punktami postoju : {0}", Zad4(path));
+       
+
+        }
+    }
+}
