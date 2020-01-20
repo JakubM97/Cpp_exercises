@@ -1,0 +1,11 @@
+static void DopiszImie(string imie, string nazwisko, int nrGrupy) 
+        {
+            string path = "DaneOsobowe.txt";
+            StreamWriter sw = new StreamWriter(path, true);
+            sw.Write(imie);
+            sw.Write(' ');
+            sw.WriteLine(nazwisko);
+            sw.Write(nrGrupy);
+            sw.Flush();
+            sw.Close();
+        }
