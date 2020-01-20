@@ -1,0 +1,13 @@
+        static void OdczytajDane(string path)
+        {
+            StreamReader sr = new StreamReader(path);
+            string line, imie, nazwisko;
+            int nrGrupy = 0;
+            line = sr.ReadLine();
+            string[] tab = line.Split(' ');
+            imie = tab[0];
+            nazwisko = tab[1];
+            nrGrupy = int.Parse(sr.ReadLine());
+            Console.WriteLine("{0} \n{1} \n{2}", imie, nazwisko, nrGrupy);
+            sr.Close();
+        }
