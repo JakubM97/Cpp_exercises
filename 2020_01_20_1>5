@@ -1,0 +1,47 @@
+using System;
+using System.IO;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void ZapiszWyniki(string source, string destination)
+        {
+            StreamReader sr = new StreamReader(source);
+            StreamWriter sw = new StreamWriter(destination, false);
+            int liczbaWynikow = int.Parse(sr.ReadLine());
+            sw.WriteLine(liczbaWynikow);
+            for(int i=0; i < liczbaWynikow; i++)
+            {
+                string line = sr.ReadLine();
+                string[] tab = line.Split(';');
+                int wynik = int.Parse(tab[1]);
+           
+                if(wynik < 70)
+                {
+                    sw.Write(line);
+                    sw.WriteLine(";hipoglikemia");
+                } else if (wynik > 150)
+                {
+                    sw.Write(line);
+                    sw.WriteLine(";hiperglikemia");
+                } else
+                {
+                    sw.Write(line);
+                    sw.WriteLine(";w normie");
+                }
+            }
+            sw.Flush();
+            sw.Close();
+            sr.Close();
+        }
+
+        static void Main(string[] args)
+        {
+            string path = @"F:\wynik.txt";
+            string destination = @"F:\wyniki2.txt";
+            ZapiszWyniki(path, destination);
+
+        }
+    }
+}
