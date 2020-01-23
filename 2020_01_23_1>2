@@ -20,8 +20,6 @@ public class Program
         float[] a = new float[len];
         float[] b = new float[len];
 
-        int counter = 0;
-
         for(int i=0; i<len; i++)
         {
             Console.WriteLine("Podaj wartosc a_"+(i+1));
