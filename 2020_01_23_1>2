@@ -1,0 +1,37 @@
+using System;
+
+public class Program
+{
+    public static float ObliczIloczynSkalarny(float[] a, float[] b)
+    {
+        float wynik = 0;
+        for (int i = 0; i < a.Length; i++)
+        {
+            wynik += a[i] * b[i];
+        }
+        //Console.WriteLine("Iloczyn skalarny tych wektorow jest rowny" + wynik);
+        return wynik;
+    }
+
+    public static void Main()
+    {
+        Console.WriteLine("Podaj liczbe wartosci w wektorach (N)");
+        int len = int.Parse(Console.ReadLine());
+        float[] a = new float[len];
+        float[] b = new float[len];
+
+        int counter = 0;
+
+        for(int i=0; i<len; i++)
+        {
+            Console.WriteLine("Podaj wartosc a_"+(i+1));
+            a[i] = float.Parse(Console.ReadLine());
+
+            Console.WriteLine("Podaj wartosc b_"+(i+1));
+            b[i] = float.Parse(Console.ReadLine());
+        }
+
+        Console.WriteLine("wynik = " + ObliczIloczynSkalarny(a, b));
+
+    }
+}
