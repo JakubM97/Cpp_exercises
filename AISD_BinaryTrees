@@ -1,0 +1,220 @@
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+struct node {
+    int data;
+    node* left;
+    node* right;
+};
+
+bool search(node* n, int value){
+    bool b = false;
+
+    if(n->data == value) {
+        return true;
+    }
+
+    if(n->left != NULL) {
+        b = search(n->left, value);
+    }
+
+    if(n->right != NULL && b == false) {
+        b = search(n->right, value);
+    }
+    return b;
+}
+
+int count_nodes(node* n){
+
+    int wynik = 1;
+    if(n->left != NULL) {
+        wynik += count_nodes(n->left);
+    }
+
+    if(n->right != NULL) {
+        wynik += count_nodes(n->right);
+    }
+
+    return wynik;
+}
+
+int count_leaves(node* n){
+    int wynik = 0;
+    if(n->left == NULL && n->right == NULL) {
+        wynik++;
+    }
+    if(n->left != NULL) {
+        wynik += count_leaves(n->left);
+    }
+    if(n->right != NULL) {
+        wynik += count_leaves(n->right);
+    }
+    return wynik;
+
+}
+
+int count_height(node* n, int h=1){
+    int l = 0;
+    int r = 0;
+
+    if(n->left == NULL && n->right == NULL)
+    {
+        return h;
+    }
+
+
+    if(n->right != NULL)
+    {
+        r = count_height(n->right, h+1);
+
+    }
+
+    if(n->left != NULL)
+    {
+        l = count_height(n->left, h+1);
+
+    }
+
+    if(l >= r) {
+        return l;
+    } else return r;
+}
+
+int count_right_children(node* n) {
+    if(n == NULL) {
+        return 0;
+    }
+
+    if(n->right!=NULL) {
+        return 1+count_right_children(n->right);
+    }
+
+    if(n->left != NULL){
+        return count_right_children(n->left);
+    }
+    return 0;
+}
+
+bool isHeightBalanced(node* n){
+    int l = 0;
+    int r = 0;
+    if(n==NULL) return true;
+    if(n->left != NULL)l = count_height(n->left);
+    if(n->right != NULL)r = count_height(n->right);
+    if(abs(l-r)<=1 && isHeightBalanced(n->left) && isHeightBalanced(n->right)) return true;
+    else return false;
+
+}
+
+bool isBST(node* n) {
+    if(n==NULL) return true;
+    bool l = true;
+    if(n->left!=NULL) {
+        if(n->data < n->left->data){
+            l=false;
+        }
+    }
+    bool r = true;
+    if(n->right!=NULL) {
+        if(n->data > n->right->data){
+            r=false;
+        }
+    }
+
+    if(l && r){
+        return isBST(n->left) * isBST(n->right);
+    } else return false;
+
+}
+
+void removeLeaves(node* n) {
+    if(n==NULL) return;
+
+    if(n->left!=0) {
+        if(n->left->left == NULL && n->left->right==NULL) {
+            n->left = NULL;
+        } else removeLeaves(n->left);
+    }
+
+    if(n->right!=0) {
+        if(n->right->left == NULL && n->right->right==NULL) {
+            n->right = NULL;
+        } else removeLeaves(n->right);
+    }
+
+
+}
+
+node* newNode(int d=0){
+    node* n = new node();
+    n->data = d;
+    n->left = NULL;
+    n->right = NULL;
+    return (n);
+}
+
+
+int main()
+{
+    //tworzenie drzewa BST
+    /*
+    1        15
+    2   10        20
+    3     12    17  26
+    */
+    node* root = newNode(15);
+    root->left = newNode(10);
+    root->left->right = newNode(12);
+    root->right = newNode(20);
+    root->right->left = newNode(17);
+    root->right->right = newNode(26);
+
+    //tworzzenie jakiegos wiekszego drzewa
+    /*
+    1            1
+    2        3       2
+    3    4     5         8
+    4         6              9
+    5        7                   10
+    6                                11
+    */
+
+    node* root2 = newNode(1);
+    root2->left = newNode(3);
+    root2->left->left = newNode(4);
+    root2->left->right = newNode(5);
+    root2->left->right->left = newNode(6);
+    root2->left->right->left->left = newNode(7);
+    root2->right = newNode(2);
+    root2->right->right = newNode(8);
+    root2->right->right->right = newNode(9);
+    root2->right->right->right->right = newNode(10);
+    root2->right->right->right->right->right = newNode(11);
+
+
+    cout << search(root, 26) << " - czy 26 znajduje sie w bst"<<endl;
+    cout << search(root2, 26) << " - czy 26 znajduje sie w gigancie"<<endl;
+    cout << count_height(root) << " - wysokosc drzewa"<<endl;
+    cout << count_height(root2) << " - wysokosc drzewa"<<endl;
+    cout << isHeightBalanced(root) << " czy jest zbalansowane (bst)"<<endl;
+    cout << isHeightBalanced(root2) << " czy jest zbalansowane (gigant)"<<endl;
+    cout << isBST(root) << " - czy jest BST (1st)"<<endl;
+    cout << isBST(root2) << " - czy jest BST (2nd)"<<endl;
+    cout << count_nodes(root) << " - liczba nodów (bst)"<<endl;
+    cout << count_nodes(root2) << " - liczba nodów (gigant)"<<endl;
+    cout << count_leaves(root) << " - liczba lisci (bst)"<<endl;
+    cout << count_leaves(root2) << " - liczba lisci (gigant)"<<endl;
+    cout << "usuwanie lisci z bst" << endl;
+    removeLeaves(root);
+    cout<< "usuwanie lisci z giganta" << endl;
+    removeLeaves(root2);
+
+    cout << count_nodes(root) << " - liczba nodów (bst)"<<endl;
+    cout << count_nodes(root2) << " - liczba nodów (gigant)"<<endl;
+    cout << count_leaves(root) << " - liczba lisci (bst)"<<endl;
+    cout << count_leaves(root2) << " - liczba lisci (gigant)"<<endl;
+    return 0;
+
+}
