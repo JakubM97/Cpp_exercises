@@ -7,6 +7,7 @@ struct node {
     int data;
     node* left;
     node* right;
+    node* parent;
 };
 
 bool search(node* n, int value){
@@ -28,7 +29,9 @@ bool search(node* n, int value){
 
 int count_nodes(node* n){
 
+    if(n==NULL) {return 1;}
     int wynik = 1;
+
     if(n->left != NULL) {
         wynik += count_nodes(n->left);
     }
@@ -147,17 +150,50 @@ void removeLeaves(node* n) {
 
 }
 
-node* newNode(int d=0){
+node* newNode(int d=0, node* parent=NULL){
     node* n = new node();
     n->data = d;
     n->left = NULL;
     n->right = NULL;
+    n->parent = parent;
     return (n);
 }
+
+void inOrderRead(node* n){
+    if(n == NULL) return;
+    inOrderRead(n->left);
+    cout << n->data << " ";
+    inOrderRead(n->right);
+}
+
+void postOrderRead(node* n){
+    if(n == NULL) return;
+    postOrderRead(n->left);
+    postOrderRead(n->right);
+    cout << n->data << " ";
+}
+
+void preOrderRead(node* n) {
+    if(n==NULL) return;
+    cout<< n->data << " ";
+    preOrderRead(n->left);
+    preOrderRead(n->right);
+
+}
+
+
+void exam(node* t, int variable){
+        if(t->left){
+            t->data = t->left->data + variable;
+            exam(t->left, variable+1);
+        }
+}
+
 
 
 int main()
 {
+
     //tworzenie drzewa BST
     /*
     1        15
@@ -194,6 +230,18 @@ int main()
     root2->right->right->right->right->right = newNode(11);
 
 
+
+    node* drzewoArka = newNode(12);
+    drzewoArka->left = newNode(7, drzewoArka);
+    drzewoArka->left->left = newNode(5, drzewoArka->left);
+    drzewoArka->left->right = newNode(9, drzewoArka->left);
+    drzewoArka->right = newNode(17, drzewoArka);
+    drzewoArka->right->left = newNode(16, drzewoArka->right);
+    drzewoArka->right->left->left = newNode(15,drzewoArka->right->left);
+    drzewoArka->right->left->left->left = newNode(14,drzewoArka->right->left->left);
+    drzewoArka->right->right = newNode(22, drzewoArka->right);
+
+
     cout << search(root, 26) << " - czy 26 znajduje sie w bst"<<endl;
     cout << search(root2, 26) << " - czy 26 znajduje sie w gigancie"<<endl;
     cout << count_height(root) << " - wysokosc drzewa"<<endl;
@@ -215,6 +263,16 @@ int main()
     cout << count_nodes(root2) << " - liczba nodów (gigant)"<<endl;
     cout << count_leaves(root) << " - liczba lisci (bst)"<<endl;
     cout << count_leaves(root2) << " - liczba lisci (gigant)"<<endl;
+
+    cout<<"\nWypisywanie drzewa preorder\n";
+    preOrderRead(drzewoArka);
+    cout<<"\nWypisywanie drzewa inOrder\n";
+    inOrderRead(drzewoArka);
+    cout<<"\nWypisywanie drzewa postOrder\n";
+    postOrderRead(drzewoArka);
+    cout<<endl<<endl;
+
+
     return 0;
 
 }
